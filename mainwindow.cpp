@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , inputFileMask("*")
     , outFolderPath("")
     , rewrite(false)
+    , repeat(false)
+    , deleteAfterProc(false)
     , hexMask()
 {
     ui->setupUi(this);
@@ -55,6 +57,7 @@ void MainWindow::onStartProcessing()
     }
 
     rewrite = ui->checkBoxRewrite->isChecked();
+    deleteAfterProc = ui->checkBoxDelete->isChecked();
 
     QString hexInput = ui->lineEditHexMask->text();
     if (isValidHex(hexInput))
@@ -137,6 +140,15 @@ void MainWindow::processFile(const QString& filename)
 
         inputFile.close();
         outputFile.close();
+
+        if (deleteAfterProc)
+        {
+            if (!inputFile.remove())
+            {
+                qWarning() << "Failed to delete input file:" << inputFile.errorString();
+            }
+        }
+
     }
 
 }

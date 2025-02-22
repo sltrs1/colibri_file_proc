@@ -46,7 +46,8 @@ private:
     QString inputFileMask;
     QString outFolderPath;
     bool rewrite;
-    QByteArray hexMask;
+    bool deleteAfterProc;
     bool repeat;
+    QByteArray hexMask;
 };
 #endif // MAINWINDOW_H
